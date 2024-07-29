@@ -3,7 +3,7 @@ const apiLink = "https://opentdb.com/api.php?amount=5&category=18&difficulty=eas
 let fetchData = async (data) => {
     let fetchQuiz = await fetch(data);
     let response = await fetchQuiz.json();
-    return response;
+    return response.results;
 };
 let Data = await fetchData(apiLink);
 const startQuiz = async () => {
@@ -13,7 +13,7 @@ const startQuiz = async () => {
         type: "input",
         message: "What is your name."
     });
-    for (let i = 1; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
         let answer = [...Data[i].incorrect_answers, Data[i].correct_answer];
         let ans = await inquirer.prompt({
             name: "quiz",
@@ -21,5 +21,11 @@ const startQuiz = async () => {
             message: Data[i].question,
             choices: answer.map((val) => val)
         });
+        if (ans.quiz == Data[i].correct_answer) {
+            ++score;
+            // console.log(chalk.greenBright("Correct Answer: " + Data[i].correct_answer));
+        }
     }
+    console.log(score);
 };
+startQuiz();
