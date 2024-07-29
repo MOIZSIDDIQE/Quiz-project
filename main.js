@@ -13,4 +13,7 @@ const startQuiz = async () => {
         type: "input",
         message: "What is your name."
     });
+    for (let i = 1; i < 5; i++) {
+        let answer = [...Data[i].incorrect_answers, Data[i].correct_answer];
+    }
 };
