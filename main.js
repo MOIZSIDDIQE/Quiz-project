@@ -1,3 +1,4 @@
+import inquirer from "inquirer";
 const apiLink = "https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple";
 let fetchData = async (data) => {
     let fetchQuiz = await fetch(data);
@@ -5,5 +6,11 @@ let fetchData = async (data) => {
     return response;
 };
 let Data = await fetchData(apiLink);
-console.log(Data.results);
-export {};
+const startQuiz = async () => {
+    let score = 0;
+    let name = await inquirer.prompt({
+        name: "Name",
+        type: "input",
+        message: "What is your name."
+    });
+};

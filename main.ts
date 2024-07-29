@@ -11,4 +11,15 @@ let fetchData = async (data:string)=>{
 
 let Data = await fetchData(apiLink);
 
-console.log(Data.results)
+const startQuiz = async ()=>{
+    let score :number = 0;
+    let name = await inquirer.prompt({
+        name:"Name",
+        type:"input",
+        message:"What is your name."
+    });
+
+    
+
+    
+};
