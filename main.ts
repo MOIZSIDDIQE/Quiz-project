@@ -22,7 +22,12 @@ const startQuiz = async ()=>{
     for(let i=1; i<5; i++){
         let answer= [...Data[i].incorrect_answers , Data[i].correct_answer];
 
-        
+        let ans =await inquirer.prompt({
+            name:"quiz",
+            type:"list",
+            message:Data[i].question,
+            choices: answer.map((val:any)=>val)
+        });
     }
 
     
