@@ -12,7 +12,7 @@ let num = await inquirer.prompt({
     message: "How many questions would you like to answer?"
 })
 
-const apiLink: string = `https://opentdb.com/api.php?amount=34&category=18&difficulty=easy&type=multiple`
+const apiLink: string = `https://opentdb.com/api.php?amount=${num.number}&category=18&difficulty=easy&type=multiple`
 
 let fetchData = async (data: string) => {
     let fetchQuiz: any = await fetch(data);
@@ -21,6 +21,11 @@ let fetchData = async (data: string) => {
 };
 
 let Data = await fetchData(apiLink);
+
+if (!Data || Data.length === 0) {
+    console.log("No data received from API. Please try again later.");
+    process.exit(1);
+}
 
 const startQuiz = async () => {
     let score: number = 0;
@@ -36,7 +41,9 @@ const startQuiz = async () => {
         });
         if (ans.quiz == Data[i].correct_answer) {
             ++score;
-            // console.log(chalk.greenBright("Correct Answer: " + Data[i].correct_answer));
+            console.log(chalk.bold.bgGreenBright("Correct"));
+        }else{
+            console.log(("Correct Answer: " + Data[i].correct_answer));
         }
     }
     console.log(`Dear ${chalk.green.bold(name.Name)}, your score is ${chalk.red.bold(score)} 
