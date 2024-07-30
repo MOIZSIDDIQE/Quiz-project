@@ -5,6 +5,7 @@ let name = await inquirer.prompt({
     type: "input",
     message: "What is your name."
 });
+console.log(chalk.bgRedBright.bold.red("Note: You can only ask 34 Question in one time."));
 let num = await inquirer.prompt({
     name: "number",
     type: "number",
@@ -36,7 +37,7 @@ const startQuiz = async () => {
             console.log(chalk.bold.bgGreenBright("Correct"));
         }
         else {
-            console.log(("Correct Answer: " + Data[i].correct_answer));
+            console.log(chalk.bgRedBright.green.bold("Correct Answer: " + Data[i].correct_answer));
         }
     }
     console.log(`Dear ${chalk.green.bold(name.Name)}, your score is ${chalk.red.bold(score)} 
