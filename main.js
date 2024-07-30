@@ -1,5 +1,16 @@
 import inquirer from "inquirer";
-const apiLink = "https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple";
+import chalk from "chalk";
+let name = await inquirer.prompt({
+    name: "Name",
+    type: "input",
+    message: "What is your name."
+});
+let num = await inquirer.prompt({
+    name: "number",
+    type: "number",
+    message: "How many questions would you like to answer?"
+});
+const apiLink = `https://opentdb.com/api.php?amount=34&category=18&difficulty=easy&type=multiple`;
 let fetchData = async (data) => {
     let fetchQuiz = await fetch(data);
     let response = await fetchQuiz.json();
@@ -8,12 +19,7 @@ let fetchData = async (data) => {
 let Data = await fetchData(apiLink);
 const startQuiz = async () => {
     let score = 0;
-    let name = await inquirer.prompt({
-        name: "Name",
-        type: "input",
-        message: "What is your name."
-    });
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < num.number; i++) {
         let answer = [...Data[i].incorrect_answers, Data[i].correct_answer];
         let ans = await inquirer.prompt({
             name: "quiz",
@@ -26,6 +32,7 @@ const startQuiz = async () => {
             // console.log(chalk.greenBright("Correct Answer: " + Data[i].correct_answer));
         }
     }
-    console.log(score);
+    console.log(`Dear ${chalk.green.bold(name.Name)}, your score is ${chalk.red.bold(score)} 
+    out of ${chalk.yellow.bold(num.number)}`);
 };
 startQuiz();
